@@ -96,7 +96,7 @@ class Seq2Seq(object):
     # run one batch for training
     def train_batch(self, sess, train_batch_gen):
         # get batches
-        batchX, batchY = train_batch_gen.__next__()
+        batchX, batchY = train_batch_gen.next()
         # build feed
         feed_dict = self.get_feed(batchX, batchY, keep_prob=0.5)
         _, loss_v = sess.run([self.train_op, self.loss], feed_dict)
@@ -104,7 +104,7 @@ class Seq2Seq(object):
 
     def eval_step(self, sess, eval_batch_gen):
         # get batches
-        batchX, batchY = eval_batch_gen.__next__()
+        batchX, batchY = eval_batch_gen.next()
         # build feed
         feed_dict = self.get_feed(batchX, batchY, keep_prob=1.)
         loss_v, dec_op_v = sess.run([self.loss, self.decode_outputs_test], feed_dict)
@@ -169,7 +169,7 @@ class Seq2Seq(object):
         return sess
 
     # prediction
-    def predict(self, sess, X):
+    def predict(self,sess, X):
         feed_dict = {self.enc_ip[t]: X[t] for t in range(self.xseq_len)}
         feed_dict[self.keep_prob] = 1.
         dec_op_v = sess.run(self.decode_outputs_test, feed_dict)
