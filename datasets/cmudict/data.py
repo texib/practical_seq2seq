@@ -21,7 +21,7 @@ import pickle
 
 '''
 def read_line(filename=FILENAME):
-    return open(filename, 'r', encoding='utf-8', errors='ignore').read().split('\n')[START_LINE:END_LINE]
+    return open(filename, 'r').read().split('\n')[START_LINE:END_LINE]
 
 
 '''
